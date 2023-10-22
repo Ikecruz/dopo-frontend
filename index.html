@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,9 +10,10 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="./css/styles.css">
 </head>
+
 <body>
     <div id="app">
-        
+
         <!-- NAVBAR -->
         <nav class="flex items-center justify-between h-[70px] my_container">
             <p class="logo text-2xl">Dopo</p>
@@ -25,18 +27,81 @@
             </div>
         </nav>
 
+        <!-- PAGE TITLE AND IMAGE -->
         <div class="flex flex-wrap border-y border-[#e0e0e0]">
-            <div class="bg-red-500 w-full sm:w-[25%] h-[100px]">
-                <img 
-                    src="./images/pencils.jpg"
-                    class="w-full h-full object-cover"
-                />
+            <div class="w-full sm:w-[25%] h-[100px]">
+                <img src="./images/pencils.jpg" class="w-full h-full object-cover" />
             </div>
-            <div class="flex-1 w-full sm:w-auto py-7 px-10 flex items-center justify-center sm:justify-start">
+            <div
+                class="flex-1 w-full sm:w-auto py-7 px-5 sm:px-10 sm:px-14 flex items-center justify-center sm:justify-start">
                 <p class="text-2xl page_title font-black">After School Activities</p>
             </div>
         </div>
 
+        <div class="flex flex-wrap sm:h-[77vh]">
+            <div class="w-full sm:w-[25%] border-e py-7 px-5 border-[#e0e0e0]">
+                <div class="flex flex-col gap-5">
+                    <div class="flex flex-col gap-[5px]">
+                        <label for="search_input" class="text-sm font-semibold">Keyword</label>
+                        <input type="text" id="search_input" class="my_input"
+                            placeholder="Search by title and location" 
+                            v-model="searchKeyword"
+                        />
+                    </div>
+
+                    <div class="flex flex-col gap-[5px]">
+                        <label for="sort_input" class="text-sm font-semibold">Sort by</label>
+                        <select type="text" id="sort_input" class="my_input" placeholder="Sort by" v-model="sortByProperty">
+                            <option value="title">Title</option>
+                            <option value="location">Location</option>
+                            <option value="price">Price</option>
+                            <option value="spaces">Spaces</option>
+                        </select>
+                    </div>
+
+                    <div class="flex flex-col gap-[5px]">
+                        <label for="order_input" class="text-sm font-semibold">Order</label>
+                        <select type="text" id="order_input" class="my_input" placeholder="Order" v-model="sortOrder">
+                            <option value="ascending">Ascending</option>
+                            <option value="descending">Descending</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex-1 w-full sm:w-auto py-7 px-5 sm:px-10 sm:px-14 flex h-full overflow-auto">
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 h-fit gap-10 w-full">
+                    <div class="flex flex-col gap-4" v-for="activity in filteredActivities">
+                        <div class="h-[180px] overflow-hidden w-full rounded-[5px]">
+                            <img :src="activity.image" class="w-full h-full object-cover" />
+                        </div>
+                        <div class="flex flex-col gap-[3px]">
+                            <p class="font-black page_title">{{activity.title}}</p>
+                            <p class="">
+                                <span class="page_title font-bold">Space</span>:
+                                <span>{{activity.spaces}}</span>
+                            </p>
+                            <p class="">
+                                <span class="page_title font-bold">Location</span>:
+                                <span>{{activity.location}}</span>
+                            </p>
+                            <p class="">
+                                <span class="page_title font-bold">Price</span>:
+                                <span>£{{activity.price}}</span>
+                            </p>
+                        </div>
+                        <button class="my_button">
+                            <i class="bi bi-bag"></i>
+                            Add to cart
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+
+    <script src="./js/activities.js"></script>
+    <script src="./js/index.js"></script>
 </body>
+
 </html>

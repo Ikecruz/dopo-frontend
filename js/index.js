@@ -2,7 +2,7 @@ var app = new Vue({
     el: "#app",
     data: {
         activities: activities,
-        sortByProperty: "price",
+        sortByProperty: "title",
         sortOrder: "ascending",
         searchKeyword: "",
     },
@@ -10,7 +10,7 @@ var app = new Vue({
         /* This is responsible for sorting the `activities` array based on the 
         `sortByProperty`(title, location, price, space) and `sortOrder`(ascending, decending) 
         data properties. */
-        sortActivities: function (activities) {
+        sortActivities: function (activities, order) {
             return activities.sort((a, b) => {
                 let aRefined = a[this.sortByProperty], bRefined = b[this.sortByProperty];
 
@@ -19,7 +19,7 @@ var app = new Vue({
                     bRefined = b[this.sortByProperty].toLowerCase();
                 }
 
-                return aRefined > bRefined
+                return order === "ascending" ? aRefined > bRefined :  aRefined < bRefined;
             })
         },
         /* The `searchActivities` function is responsible for filtering the `activities` array based on
@@ -33,7 +33,10 @@ var app = new Vue({
     },
     computed: {
         filteredActivities: function () {
-            return this.sortActivities(this.searchActivities(this.activities));
+            return this.sortActivities(
+                this.searchActivities(this.activities),
+                this.sortOrder
+            );
         }
     }
 })
