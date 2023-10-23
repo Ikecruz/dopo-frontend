@@ -21,7 +21,8 @@
                 <div class="h-[18px] w-[18px] rounded-[100%] bg-black flex items-center justify-center cart_indicator">
                     <p class="text-xs text-white">{{cart.length}}</p>
                 </div>
-                <button class="rounded h-8 w-8 flex items-center justify-center bg-[#f5f5f5]" :disabled="cart.length < 1">
+                <button class="rounded h-8 w-8 flex items-center justify-center bg-[#f5f5f5]"
+                    :disabled="cart.length < 1" @click="changePage">
                     <i class="bi bi-bag"></i>
                 </button>
             </div>
@@ -34,24 +35,24 @@
             </div>
             <div
                 class="flex-1 w-full sm:w-auto py-7 px-5 sm:px-10 sm:px-14 flex items-center justify-center sm:justify-start">
-                <p class="text-2xl page_title font-black">After School Activities</p>
+                <p class="text-2xl page_title font-black" v-if="viewActivities">After School Activities</p>
+                <p class="text-2xl page_title font-black" v-else>Checkout</p>
             </div>
         </div>
 
-        <div class="flex flex-wrap sm:h-[77vh]">
-            <div class="w-full sm:w-[25%] border-e py-7 px-5 border-[#e0e0e0]">
-                <div class="flex flex-col gap-5">
+        <div class="flex flex-wrap" v-if="viewActivities">
+            <div class="w-full sm:w-[25%] sm:min-h-[77vh] border-e py-7 px-5 border-[#e0e0e0] relative">
+                <div class="flex flex-col gap-5 sticky top-5">
                     <div class="flex flex-col gap-[5px]">
                         <label for="search_input" class="text-sm font-semibold">Keyword</label>
-                        <input type="text" id="search_input" class="my_input"
-                            placeholder="Search by title and location" 
-                            v-model="searchKeyword"
-                        />
+                        <input type="text" id="search_input" class="my_input" placeholder="Search by title and location"
+                            v-model="searchKeyword" />
                     </div>
 
                     <div class="flex flex-col gap-[5px]">
                         <label for="sort_input" class="text-sm font-semibold">Sort by</label>
-                        <select type="text" id="sort_input" class="my_input" placeholder="Sort by" v-model="sortByProperty">
+                        <select type="text" id="sort_input" class="my_input" placeholder="Sort by"
+                            v-model="sortByProperty">
                             <option value="title">Title</option>
                             <option value="location">Location</option>
                             <option value="price">Price</option>
@@ -69,8 +70,9 @@
                 </div>
             </div>
 
-            <div class="flex-1 w-full sm:w-auto py-7 px-5 sm:px-10 sm:px-14 flex h-full overflow-auto">
-                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 h-fit gap-10 w-full" v-if="filteredActivities.length > 0">
+            <div class="flex-1 w-full sm:w-auto py-7 px-5 sm:px-10 sm:px-14 flex sm:min-h-[77vh]">
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 h-fit gap-10 w-full"
+                    v-if="filteredActivities.length > 0">
                     <div class="flex flex-col gap-4" v-for="activity in filteredActivities">
                         <div class="h-[180px] overflow-hidden w-full rounded-[5px]">
                             <img :src="activity.image" class="w-full h-full object-cover" />
@@ -90,7 +92,8 @@
                                 <span>£{{activity.price}}</span>
                             </p>
                         </div>
-                        <button class="my_button" :disabled="disableAddToCart(activity.id)" @click="addToCart(activity)">
+                        <button class="my_button" :disabled="disableAddToCart(activity.id)"
+                            @click="addToCart(activity)">
                             <i class="bi bi-bag"></i>
                             Add to cart
                         </button>
@@ -104,6 +107,57 @@
                 </div>
             </div>
         </div>
+
+        <div class="flex flex-wrap" v-else>
+            <div class="w-full sm:w-[70%] border-e sm:min-h-[77vh] py-7 px-5 border-[#e0e0e0]">
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 h-fit gap-10 w-full">
+                    <div class="flex flex-col gap-4" v-for="activity in cart">
+                        <div class="h-[180px] overflow-hidden w-full rounded-[5px]">
+                            <img :src="activity.image" class="w-full h-full object-cover" />
+                        </div>
+                        <div class="flex flex-col gap-[3px]">
+                            <p class="font-black page_title">{{activity.title}}</p>
+                            <p class="">
+                                <span class="page_title font-bold">Space</span>:
+                                <span>{{activity.spaces}}</span>
+                            </p>
+                            <p class="">
+                                <span class="page_title font-bold">Location</span>:
+                                <span>{{activity.location}}</span>
+                            </p>
+                            <p class="">
+                                <span class="page_title font-bold">Price</span>:
+                                <span>£{{activity.price}}</span>
+                            </p>
+                        </div>
+                        <button class="my_button bg-red-500" @click="removefromCart(activity)">
+                            Remove from cart
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="flex-1 w-full sm:w-auto py-7 px-5 sm:px-10 sm:px-14 flex sm:min-h-[77vh]">
+                <div class="flex flex-col gap-5 sticky top-5 w-full">
+                    <div class="flex flex-col gap-[5px]">
+                        <label for="search_input" class="text-sm font-semibold">Name</label>
+                        <input type="text" id="search_input" class="my_input" placeholder="Enter fullname"
+                            v-model="searchKeyword" />
+                    </div>
+                    <div class="flex flex-col gap-[5px]">
+                        <label for="search_input" class="text-sm font-semibold">Phone</label>
+                        <input type="number" inputmode="numeric" id="search_input" class="my_input" placeholder="Enter contact number"
+                             />
+                    </div>
+                    <div class="flex flex-col gap-[5px]">
+                        <button class="my_button"
+                            @click="addToCart(activity)">
+                            Checkout
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <script src="./js/activities.js"></script>

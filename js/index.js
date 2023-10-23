@@ -5,7 +5,8 @@ var app = new Vue({
         sortByProperty: "title",
         sortOrder: "ascending",
         searchKeyword: "",
-        cart: []
+        cart: [],
+        viewActivities: true
     },
     methods: {
         /* This is responsible for sorting the `activities` array based on the 
@@ -54,6 +55,9 @@ var app = new Vue({
                 return item
             });
 
+        },
+        changePage: function () {
+            this.viewActivities = !this.viewActivities;
         }
     },
     computed: {
