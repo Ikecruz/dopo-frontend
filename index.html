@@ -70,7 +70,7 @@
             </div>
 
             <div class="flex-1 w-full sm:w-auto py-7 px-5 sm:px-10 sm:px-14 flex h-full overflow-auto">
-                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 h-fit gap-10 w-full">
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 h-fit gap-10 w-full" v-if="filteredActivities.length > 0">
                     <div class="flex flex-col gap-4" v-for="activity in filteredActivities">
                         <div class="h-[180px] overflow-hidden w-full rounded-[5px]">
                             <img :src="activity.image" class="w-full h-full object-cover" />
@@ -95,6 +95,12 @@
                             Add to cart
                         </button>
                     </div>
+                </div>
+
+                <div class="w-full h-full flex flex-col justify-center items-center" v-else>
+                    <i class="bi bi-emoji-astonished text-[6em]"></i>
+                    <p class="text-2xl font-black page_title mb-2">Nothing Found</p>
+                    <p>Can't find any activity with "{{searchKeyword}}" as Title or Location</p>
                 </div>
             </div>
         </div>
