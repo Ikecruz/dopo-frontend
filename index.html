@@ -19,9 +19,9 @@
             <p class="logo text-2xl">Dopo</p>
             <div class="relative">
                 <div class="h-[18px] w-[18px] rounded-[100%] bg-black flex items-center justify-center cart_indicator">
-                    <p class="text-xs text-white">0</p>
+                    <p class="text-xs text-white">{{cart.length}}</p>
                 </div>
-                <button class="rounded h-8 w-8 flex items-center justify-center bg-[#f5f5f5]" disabled>
+                <button class="rounded h-8 w-8 flex items-center justify-center bg-[#f5f5f5]" :disabled="cart.length < 1">
                     <i class="bi bi-bag"></i>
                 </button>
             </div>
@@ -90,7 +90,7 @@
                                 <span>£{{activity.price}}</span>
                             </p>
                         </div>
-                        <button class="my_button" :disabled="disableAddToCart(activity.id)">
+                        <button class="my_button" :disabled="disableAddToCart(activity.id)" @click="addToCart(activity)">
                             <i class="bi bi-bag"></i>
                             Add to cart
                         </button>

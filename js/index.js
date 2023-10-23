@@ -30,6 +30,30 @@ var app = new Vue({
                 return this.searchKeyword.toLowerCase().split(" ").every(v => activity.title.toLowerCase().includes(v)) ||
                     this.searchKeyword.toLowerCase().split(" ").every(v => activity.location.toLowerCase().includes(v))
             })
+        },
+        /* The `addToCart` function is responsible for adding an activity to the cart. */
+        addToCart: function (activity) {
+            let itemInCart = this.cart.find(item => item.id === activity.id);
+
+            if (!itemInCart) {
+                let newItemInCart = {
+                    ...activity,
+                    spaces: 0
+                }
+
+                this.cart.push(newItemInCart);
+            }
+
+            this.activities = this.activities.map(item => {
+                if (item.id === activity.id) return {...item, spaces: item.spaces - 1}
+                return item
+            });
+
+            this.cart = this.cart.map(item => {
+                if (item.id === activity.id) return {...item, spaces: item.spaces + 1}
+                return item
+            });
+
         }
     },
     computed: {
