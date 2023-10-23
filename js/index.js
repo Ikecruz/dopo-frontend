@@ -5,6 +5,7 @@ var app = new Vue({
         sortByProperty: "title",
         sortOrder: "ascending",
         searchKeyword: "",
+        cart: []
     },
     methods: {
         /* This is responsible for sorting the `activities` array based on the 
@@ -37,6 +38,15 @@ var app = new Vue({
                 this.searchActivities(this.activities),
                 this.sortOrder
             );
+        },
+        /* The `disableAddToCart` function checked if an activity can be added to cart. It returns
+        a function that takes an `id` parameter. */
+        disableAddToCart: function () {
+            return (id) => {
+                const item = this.activities.find(item => item.id === id)
+                if (item.spaces > 0) return false;
+                return true
+            }
         }
     }
 })

@@ -90,7 +90,7 @@
                                 <span>£{{activity.price}}</span>
                             </p>
                         </div>
-                        <button class="my_button">
+                        <button class="my_button" :disabled="disableAddToCart(activity.id)">
                             <i class="bi bi-bag"></i>
                             Add to cart
                         </button>

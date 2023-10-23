@@ -35,6 +35,10 @@ body {
     gap: 10px;
 }
 
+.my_button:disabled{
+    opacity: 0.7;
+}
+
 .my_input {
     background-color: #f1f3f5;
     height: 40px;
