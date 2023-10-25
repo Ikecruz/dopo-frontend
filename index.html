@@ -118,8 +118,12 @@
                         <div class="flex flex-col gap-[3px]">
                             <p class="font-black page_title">{{activity.title}}</p>
                             <p class="">
-                                <span class="page_title font-bold">Space</span>:
+                                <span class="page_title font-bold">Available Space</span>:
                                 <span>{{activity.spaces}}</span>
+                            </p>
+                            <p class="">
+                                <span class="page_title font-bold">Booked Space</span>:
+                                <span>{{activity.bookedSpaces}}</span>
                             </p>
                             <p class="">
                                 <span class="page_title font-bold">Location</span>:
@@ -130,7 +134,7 @@
                                 <span>£{{activity.price}}</span>
                             </p>
                         </div>
-                        <button class="my_button bg-red-500" @click="removefromCart(activity)">
+                        <button class="my_button bg-red-500" @click="removeFromCart(activity)">
                             Remove from cart
                         </button>
                     </div>
@@ -147,6 +151,13 @@
                         <label for="search_input" class="text-sm font-semibold">Phone</label>
                         <input type="number" inputmode="numeric" id="search_input" class="my_input" placeholder="Enter contact number"
                              />
+                    </div>
+                    <div class="flex justify-between">
+                        <p>Total</p>
+                        <div class="flex">
+                            <p class="text-xs">£</p>
+                            <p class="text-2xl font-black page_title">{{totalPrice}}</p>
+                        </div>
                     </div>
                     <div class="flex flex-col gap-[5px]">
                         <button class="my_button"
