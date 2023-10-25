@@ -6,7 +6,11 @@ var app = new Vue({
         sortOrder: "ascending",
         searchKeyword: "",
         cart: [],
-        viewActivities: true
+        viewActivities: true,
+        checkout: {
+            fullname: "",
+            mobile: ""
+        }
     },
     methods: {
         /* Sorts the `activities` array based on the `sortByProperty`(title, location, price, space) 
@@ -89,6 +93,12 @@ var app = new Vue({
         },
         changePage: function () {
             this.viewActivities = !this.viewActivities;
+        },
+        acceptJustNumbers: function (event) {
+            if (!/^[0-9+]+$/.test(event.key)) event.preventDefault();
+        },
+        acceptJustStrings: function (event) {
+            if (!/^[a-zA-Z]+$/.test(event.key)) event.preventDefault();
         }
     },
     computed: {
@@ -110,6 +120,9 @@ var app = new Vue({
             return this.cart.reduce((previousValue, currentValue) => {
                 return previousValue + (currentValue.price * currentValue.bookedSpaces)
             }, 0)
+        },
+        validateForm: function () {
+            return (this.checkout.fullname.length < 1 || this.checkout.mobile.length < 5)
         }
     }
 })
