@@ -99,6 +99,9 @@ var app = new Vue({
         },
         acceptJustStrings: function (event) {
             if (!/^[a-zA-Z]+$/.test(event.key)) event.preventDefault();
+        },
+        finish: function () {
+            alert("Order completed")
         }
     },
     computed: {
