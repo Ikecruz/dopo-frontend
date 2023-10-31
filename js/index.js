@@ -30,8 +30,8 @@ var app = new Vue({
         /* Responsible for filtering the `activities` based on the `searchKeyword`. */
         searchActivities: function (activities) {
             return activities.filter((activity) => {
-                return this.searchKeyword.toLowerCase().split(" ").every(v => activity.title.toLowerCase().includes(v)) ||
-                    this.searchKeyword.toLowerCase().split(" ").every(v => activity.location.toLowerCase().includes(v))
+                return activity.title.toLowerCase().includes(this.searchKeyword.toLowerCase()) ||
+                activity.location.toLowerCase().includes(this.searchKeyword.toLowerCase())
             })
         },
         /* Responsible for adding an activity to the cart. */
