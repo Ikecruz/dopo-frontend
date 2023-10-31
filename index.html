@@ -144,15 +144,14 @@
                 <div class="flex flex-col gap-5 sticky top-5 w-full">
                     <div class="flex flex-col gap-[5px]">
                         <label for="search_input" class="text-sm font-semibold">Name</label>
-                        <input type="text" id="search_input" class="my_input" placeholder="Enter fullname"
-                            v-model="checkout.fullname" @keypress="acceptJustStrings($event)" />
+                        <input type="text" id="name_input" class="my_input" placeholder="Enter fullname"
+                            v-model="checkout.fullname" @keypress="acceptJustLetters($event)" />
                     </div>
                     <div class="flex flex-col gap-[5px]">
                         <label for="search_input" class="text-sm font-semibold">Phone</label>
-                        <input type="number" inputmode="numeric" id="search_input" class="my_input"
+                        <input type="number" inputmode="numeric" id="phone_input" class="my_input"
                             placeholder="Enter contact number" v-model="checkout.mobile"
-                            @keypress="acceptJustNumbers($event)" @onchange="console.log($event)"
-                            @onpaste="console.log($event)" />
+                            @keypress="acceptJustNumbers($event)" />
                     </div>
                     <div class="flex justify-between">
                         <p>Total</p>

@@ -97,7 +97,7 @@ var app = new Vue({
         acceptJustNumbers: function (event) {
             if (!/^[0-9+]+$/.test(event.key)) event.preventDefault();
         },
-        acceptJustStrings: function (event) {
+        acceptJustLetters: function (event) {
             if (!/^[a-zA-Z]+$/.test(event.key)) event.preventDefault();
         },
         finish: function () {
