@@ -128,7 +128,7 @@ var app = new Vue({
             return (this.checkout.fullname.length < 1 || this.checkout.mobile.length < 5)
         },
         cartLength: function () {
-            return this.activities.length;
+            return this.cart.length;
         }
     }
 })
